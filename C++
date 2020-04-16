@@ -1,0 +1,184 @@
+#include <string>
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+
+struct node
+{
+    int year,code;
+    char title[50],author[50],publisher[50];
+    struct node *next;
+};
+
+    struct node *head=NULL, *temp, *newnode, *nextnode,*prev;// *prenod,*bookptr;
+  //  int c=1, ch=1, s;
+
+void insert1()
+{
+newnode = new node;
+cout<<"\nEnter the Title:\t";
+cin>>newnode->title;
+cout<<"\nEnter name of the Author:\t";
+cin>>newnode->author;
+cout<<"\nEnter name of Publisher:\t";
+cin>>newnode->publisher;
+cout<<"\nEnter the year:\t:";
+cin>>newnode->year;
+cout<<"\nEnter the code:\t";
+cin>>newnode->code;
+newnode->next=NULL;
+
+    if(head==NULL)
+    {
+    head=newnode;
+
+    }
+    else
+    {
+    temp=head;
+        while(temp->next!=NULL)
+        {
+        temp=temp->next;
+        }
+    temp->next=newnode;
+    }
+int co=0;
+temp=head;
+    while(temp!=NULL)
+    {
+    co++;
+    temp = temp->next;
+    }
+}
+
+void delIsbn()
+{
+struct node *prev;
+int pos;
+cout << "Book Code to be deleted:\t\t\t";
+cout<<endl;
+cin>>pos;
+cout<<endl;
+    if(head==NULL)
+      {
+      cout<<"List empty\n\n";
+      }
+    else  if(head->code==pos)
+      {
+      temp=head;
+      head=head->next;
+      cout<<"Record of code "<<pos<<" is deleted\n";
+      cout<<endl;
+      delete temp;
+      }
+
+    else
+        {
+         temp=head;
+        while (temp->code!=pos)
+            {
+                prev=temp;
+                temp = temp->next;
+            }
+        prev->next=temp->next;
+        cout<<"Record of code "<<pos<<" is deleted"<<endl;
+        delete temp;
+        }
+}
+
+
+void searchIsbn()
+{
+int found=0;
+int item;
+cout << "Enter Book code to be searched:\t\t\t";
+cout<<endl;
+cin>>item;
+cout<<endl;
+temp=head;
+while (temp != NULL)
+{
+
+    if (temp->code==item)
+    {
+    found++;
+    cout <<"Title= "<<temp->title << "\n";
+    cout <<"Author= "<< temp->author << "\n";
+    cout <<"Publisher= "<< temp->publisher << "\n";
+    cout <<"Year= "<<temp->year << "\n";
+    cout <<"Code= "<< temp->code << "\n\n";
+    }
+    temp = temp->next;
+}
+if(found!=0)
+{
+cout<<"Book found\n";
+}
+else
+{
+cout<<"Book not found\n";
+}
+cout << "\n";
+}
+
+void printList()
+{
+ temp=head;
+    while (temp != NULL)
+    {
+    cout <<"Title= "<<temp->title << "\n";
+    cout <<"Author= "<< temp->author << "\n";
+    cout <<"Publisher= "<< temp->publisher << "\n";
+    cout << "Year= "<<temp->year << "\n";
+    cout <<"Code= "<< temp->code << "\n\n";
+    temp = temp->next;
+    }
+cout << "\n";
+}
+
+int main()
+{
+    cout<<"\n\t\t--------------------------";
+    cout<<"\n\t\tLIBRARY MANAGEMENT SYSTEM";
+    cout<<"\n\t\t--------------------------"<<endl;
+    int choice;
+
+do
+{
+cout << "Menu: Select your option\n\n";
+cout << "(1) Add a book to the list\n";
+cout << "(2) Delete a book based on ISBN\n";
+cout << "(3) Search for a book by ISBN.\n";
+cout << "(4) List all books.\n";
+cout << "(5) Quit.\n\n";
+cout << "Enter your choice ---> ";
+cin >> choice;
+if (1 <= choice && choice <= 6)
+    {
+        switch (choice)
+        {
+        case 1:
+                insert1();
+                break;
+        case 2:
+                delIsbn();
+                break;
+        case 3:
+                searchIsbn();
+                break;
+        case 4:
+                printList();
+                break;
+        case 5:
+                exit(0);
+                break;
+
+        default:
+                cout << "Invalid choice. Enter again.\n\n";
+                break;
+        }
+    }
+}
+while (choice != 7);
+return 0;
+}
